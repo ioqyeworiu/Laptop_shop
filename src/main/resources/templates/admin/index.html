@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{base::layout(~{::section})}"
+>
+  <head>
+    <title>Admin Page</title>
+    <meta
+      charset="UTF-8"
+      name="viewport"
+      content="device=device-width, initial-scale=1.0"
+    />
+  </head>
+  <body>
+    <section>
+      <div class="container p-5">
+        <p class="text-center fs-3 mt-4">Admin Dashboard</p>
+        <div class="row p-5">
+          <div class="col-md-4 mb-5">
+            <a href="admin/loadAddProduct" class="text-decoration-none">
+              <div class="card card-sh">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-square-plus fa-3x text-primary"></i>
+                  <p class="fs-5 fw-bold">Add Product</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 mb-5">
+            <a href="admin/category" class="text-decoration-none">
+              <div class="card card-sh">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-list fa-3x"></i>
+                  <p class="fs-5 fw-bold">Category</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 mb-5">
+            <a href="..." class="text-decoration-none">
+              <div class="card card-sh">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-cart-flatbed fa-3x"></i>
+                  <p class="fs-5 fw-bold">View Product</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 mb-5">
+            <a href="..." class="text-decoration-none">
+              <div class="card card-sh">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-box fa-3x"></i>
+                  <p class="fs-5 fw-bold">Orders</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 mb-5">
+            <a href="..." class="text-decoration-none">
+              <div class="card card-sh">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-user fa-3x"></i>
+                  <p class="fs-5 fw-bold">User</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 mb-5">
+            <a href="..." class="text-decoration-none">
+              <div class="card card-sh">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-user-tie fa-3x"></i>
+                  <p class="fs-5 fw-bold">Add Admin</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

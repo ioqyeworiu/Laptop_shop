@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html
+  html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{base::layout(~{::section})}"
+>
+  <head>
+    <title>Products</title>
+    <meta
+      charset="UTF-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+  </head>
+  <body>
+    <section>
+      <!-- start search bar-->
+      <div class="container-fluid bg-primary p-5 mt-5" style="padding-bottom: 100%;">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="ch"
+                  placeholder="write something"
+                />
+                <button class="btn btn-light text-dark ms-3 col-md-2">
+                  <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- end search bar-->
+      <!-- start product list -->
+      <div class="container-fluid mt-1">
+        <div class="row">
+          <!-- start side bar -->
+          <div class="col-md-2 p-0">
+            <div class="shadow-sm p-0 mb-5 bg-body-tertiary rounded">
+              <div class="card-body">
+                <div class="list-group">
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action active"
+                    aria-current="true"
+                  >
+                    Categories
+                  </button>
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Laptop
+                  </button>
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Mouse
+                  </button>
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Keyboard
+                  </button>
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                  >
+                    headphone
+                  </button>
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                  >
+                    others
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- end side bar -->
+          <!-- start products -->
+          <div class="col-md-10">
+            <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+              <div class="card-body">
+                <p class="fs-3 text-center">Products</p>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <img alt="laptop1" src="..." width="100%" height="150px" />
+                        <p class="fs-5 text-center">Laptop</p>
+                        <div class="row text-center">
+                          <p class="fs-6 fw-bold">
+                            &#36;500
+                            <span class="fs-6 text-success">20% off</span>
+                          </p>
+                          <a href="/product" class="btn btn-primary col-md-6 offset-md-3"
+                            >View Details</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <img alt="..." src="..." width="100%" height="150px" />
+                        <p class="fs-5 text-center">Laptop</p>
+                        <div class="row text-center">
+                          <p class="fs-6 fw-bold">
+                            &#36;500
+                            <span class="fs-6 text-success">20% off</span>
+                          </p>
+                          <a class="btn btn-primary col-md-6 offset-md-3"
+                            >View Details</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <img alt="..." src="..." width="100%" height="150px" />
+                        <p class="fs-5 text-center">Laptop</p>
+                        <div class="row text-center">
+                          <p class="fs-6 fw-bold">
+                            &#36;500
+                            <span class="fs-6 text-success">20% off</span>
+                          </p>
+                          <a class="btn btn-primary col-md-6 offset-md-3"
+                            >View Details</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <img alt="..." src="..." width="100%" height="150px" />
+                        <p class="fs-5 text-center">Laptop</p>
+                        <div class="row text-center">
+                          <p class="fs-6 fw-bold">
+                            &#36;500
+                            <span class="fs-6 text-success">20% off</span>
+                          </p>
+                          <a class="btn btn-primary col-md-6 offset-md-3"
+                            >View Details</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- TODO : Remove after backend implement-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end products -->
+        </div>
+      </div>
+      <!-- end product list -->
+    </section>
+  </body>
+</html>

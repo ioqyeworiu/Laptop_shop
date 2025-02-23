@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "home";
     }
 
     @GetMapping("/login")
@@ -19,5 +19,15 @@ public class HomeController {
     @GetMapping("/register")
     public String register() {
         return "register";
+    }
+
+    @GetMapping("/products")
+    public String products() {
+        return "products";
+    }
+
+    @GetMapping("/product")
+    public String product() {
+        return "view_product";
     }
 }
