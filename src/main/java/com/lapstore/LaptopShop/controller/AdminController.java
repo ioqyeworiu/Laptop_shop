@@ -6,9 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lapstore.LaptopShop.model.Category;
 import com.lapstore.LaptopShop.model.Product;
+import com.lapstore.LaptopShop.model.UserDtls;
 import com.lapstore.LaptopShop.service.CategoryService;
 import com.lapstore.LaptopShop.service.ProductService;
+import com.lapstore.LaptopShop.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,9 +43,24 @@ public class AdminController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("")
     public String index() {
         return "admin/index";
+    }
+
+    @ModelAttribute
+    public void getUserDetails(Principal p, Model m) {
+        if (p != null) {
+            String email = p.getName();
+            UserDtls userDtls = userService.getUserByEmail(email);
+            m.addAttribute("user", userDtls);
+        }
+
+        List<Category> allActiveCategory = categoryService.getAllActiveCategories();
+        m.addAttribute("categories", allActiveCategory);
     }
 
     @GetMapping("/loadAddProduct")
@@ -221,4 +240,25 @@ public class AdminController {
         return "redirect:/admin/editProduct/" + product.getId();
     }
 
+    @GetMapping("/users")
+    public String getAllUsers(Model m) {
+
+        List<UserDtls> users = userService.getUsers("ROLE_USER");
+        m.addAttribute("users", users);
+        return "/admin/users";
+
+    }
+
+    @GetMapping("/updateSts")
+    public String updateUserAccountStatus(@RequestParam Boolean status, @RequestParam Integer id, HttpSession session) {
+        
+        Boolean f = userService.updateAccountStatus(id, status);
+        if (f) {
+            session.setAttribute("succMsg", "Account status updated");
+        } else {
+            session.setAttribute("errorMsg", "Something wrong on server");
+        }
+
+        return "redirect:/admin/users";
+    }
 }

@@ -16,7 +16,10 @@
   <body>
     <section>
       <!-- start search bar-->
-      <div class="container-fluid bg-primary p-5 mt-5" style="padding-bottom: 100%;">
+      <div
+        class="container-fluid bg-primary p-5 mt-5"
+        style="padding-bottom: 100%"
+      >
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <form>
@@ -41,46 +44,28 @@
         <div class="row">
           <!-- start side bar -->
           <div class="col-md-2 p-0">
-            <div class="shadow-sm p-0 mb-5 bg-body-tertiary rounded">
+            <div class="card shadow-sm p-0 mb-5 bg-body-tertiary rounded">
               <div class="card-body">
                 <div class="list-group">
-                  <button
-                    type="button"
-                    class="list-group-item list-group-item-action active"
+                  <p class="fs-5">Category</p>
+                  <a
+                    href="/products"
+                    class="list-group-item list-group-item-action"
+                    th:classappend="${paramValue==''} ? 'active':''"
                     aria-current="true"
                   >
-                    Categories
-                  </button>
-                  <button
-                    type="button"
+                    All
+                  </a>
+
+                  <a
+                    th:each="c:${categories}"
+                    th:href="@{'/products?category='+${c.name}}"
+                    th:classappend="${paramValue == c.name} ? 'active':''"
                     class="list-group-item list-group-item-action"
+                    aria-current="true"
                   >
-                    Laptop
-                  </button>
-                  <button
-                    type="button"
-                    class="list-group-item list-group-item-action"
-                  >
-                    Mouse
-                  </button>
-                  <button
-                    type="button"
-                    class="list-group-item list-group-item-action"
-                  >
-                    Keyboard
-                  </button>
-                  <button
-                    type="button"
-                    class="list-group-item list-group-item-action"
-                  >
-                    headphone
-                  </button>
-                  <button
-                    type="button"
-                    class="list-group-item list-group-item-action"
-                  >
-                    others
-                  </button>
+                    [[${c.name}]]
+                  </a>
                 </div>
               </div>
             </div>
@@ -93,75 +78,46 @@
               <div class="card-body">
                 <p class="fs-3 text-center">Products</p>
                 <div class="row">
-                  <div class="col-md-3">
-                    <div class="card">
-                      <div class="card-body text-center">
-                        <img alt="laptop1" src="..." width="100%" height="150px" />
-                        <p class="fs-5 text-center">Laptop</p>
-                        <div class="row text-center">
-                          <p class="fs-6 fw-bold">
-                            &#36;500
-                            <span class="fs-6 text-success">20% off</span>
-                          </p>
-                          <a href="/product" class="btn btn-primary col-md-6 offset-md-3"
-                            >View Details</a
-                          >
+                  <th:block th:if="${products.size}">
+                    <div class="col-md-3" th:each="p:${products}">
+                      <div class="card">
+                        <div class="card-body text-center">
+                          <img
+                            alt="laptop1"
+                            th:src="@{'/img/product_img/'+${p.image}}"
+                            width="100%"
+                            height="150px"
+                          />
+                          <p class="fs-5 text-center">[[${p.title}]]</p>
+                          <div class="row text-center">
+                            <p>
+                              <span class="fw-bold"
+                                >&#36;[[${p.discountPrice}]]</span
+                              ><br />
+                              <span
+                                class="text-decoration-line-through text-secondary fw-bold"
+                              >
+                                &#36;[[${p.price}]]
+                              </span>
+                              <span class="text-success fw-bold"
+                                >[[${p.discount}]]% off</span
+                              >
+                            </p>
+                            <a
+                              th:href="@{'/product/'+${p.id}}"
+                              class="btn btn-primary col-md-6 offset-md-3"
+                              >View Details</a
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card">
-                      <div class="card-body text-center">
-                        <img alt="..." src="..." width="100%" height="150px" />
-                        <p class="fs-5 text-center">Laptop</p>
-                        <div class="row text-center">
-                          <p class="fs-6 fw-bold">
-                            &#36;500
-                            <span class="fs-6 text-success">20% off</span>
-                          </p>
-                          <a class="btn btn-primary col-md-6 offset-md-3"
-                            >View Details</a
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card">
-                      <div class="card-body text-center">
-                        <img alt="..." src="..." width="100%" height="150px" />
-                        <p class="fs-5 text-center">Laptop</p>
-                        <div class="row text-center">
-                          <p class="fs-6 fw-bold">
-                            &#36;500
-                            <span class="fs-6 text-success">20% off</span>
-                          </p>
-                          <a class="btn btn-primary col-md-6 offset-md-3"
-                            >View Details</a
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card">
-                      <div class="card-body text-center">
-                        <img alt="..." src="..." width="100%" height="150px" />
-                        <p class="fs-5 text-center">Laptop</p>
-                        <div class="row text-center">
-                          <p class="fs-6 fw-bold">
-                            &#36;500
-                            <span class="fs-6 text-success">20% off</span>
-                          </p>
-                          <a class="btn btn-primary col-md-6 offset-md-3"
-                            >View Details</a
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- TODO : Remove after backend implement-->
+                  </th:block>
+                  <th:block th:unless="${products.size>0}">
+                    <p class="fs-4 text-center mt-4 text-danger">
+                      Product not available
+                    </p>
+                  </th:block>
                 </div>
               </div>
             </div>

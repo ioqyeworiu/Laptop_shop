@@ -2,7 +2,6 @@ package com.lapstore.LaptopShop.service.impl;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -47,6 +46,12 @@ public class CategoryServiceImpl implements CategoryService {
     public Category getCategoryById(int id) {
         Category category = categoryRepository.findById(id).orElse(null);
         return category;
-    }    
+    }
+
+    @Override
+    public List<Category> getAllActiveCategories() {
+        List<Category> categories = categoryRepository.findByIsActiveTrue();
+        return categories;
+    }
 
 }

@@ -11,9 +11,11 @@ public interface CategoryService {
 
     public Boolean existCategory(String name);
 
-    public List<com.lapstore.LaptopShop.model.Category> getAllCategory();
+    public List<Category> getAllCategory();
 
     public Boolean deleteCategory(int id);
 
     public Category getCategoryById(int id);
+
+    public List<Category> getAllActiveCategories();
 }
