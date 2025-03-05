@@ -1,4 +1,4 @@
-package com.lapstore.LaptopShop.service.util;
+package com.lapstore.LaptopShop.util;
 
 public class AppConstant {
     public static final long UNLOCK_DURATION_TIME = 3000; //miliseconds

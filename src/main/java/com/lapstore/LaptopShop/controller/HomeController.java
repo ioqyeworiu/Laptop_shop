@@ -2,18 +2,22 @@ package com.lapstore.LaptopShop.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
+
 import com.lapstore.LaptopShop.model.Category;
 import com.lapstore.LaptopShop.model.Product;
 import com.lapstore.LaptopShop.model.UserDtls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -28,7 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lapstore.LaptopShop.service.CategoryService;
 import com.lapstore.LaptopShop.service.ProductService;
 import com.lapstore.LaptopShop.service.UserService;
+import com.lapstore.LaptopShop.util.CommonUtil;
 
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -41,6 +48,12 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommonUtil commonUtil;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @ModelAttribute
     public void getUserDetails(Principal p, Model m) {
@@ -116,4 +129,70 @@ public class HomeController {
         return "redirect:/register";
     }
 
+    // forgot password
+
+    @GetMapping("/forgot-password")
+    public String showForgotPassword() {
+
+        return "forgot_password.html";
+    }
+
+    @PostMapping("/forgot-password")
+    public String processForgotPassword(@RequestParam String email, HttpSession session, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        UserDtls userByEmail = userService.getUserByEmail(email);
+
+        if (ObjectUtils.isEmpty(userByEmail)) {
+            session.setAttribute("errorMsg", "Invalid email");
+        } else {
+
+            String resetToken = UUID.randomUUID().toString();
+            userService.updateUserResetToken(email, resetToken);
+
+            // generate URL : http://localhost:8080/reset-password?token=sdfasfsgasg
+
+            String url = CommonUtil.generateUrl(request) + "/reset-password?token=" + resetToken;
+
+            Boolean sendMail = commonUtil.sendMail(url, email);
+
+            if (sendMail) {
+                session.setAttribute("succMsg", "Please check your email.. Password reset link sent");
+            } else {
+                session.setAttribute("errorMsg", "Something wrong on server! Mail not sent");
+            }
+        }
+
+        return "redirect:/forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPassword(@RequestParam String token, HttpSession session, Model m) {
+
+        UserDtls userByToken = userService.getUserByToken(token);
+
+        if (userByToken == null) {
+            m.addAttribute("msg", "Your link is invalid or expired !!");
+            return "message";
+        }
+        m.addAttribute("token", token);
+        return "reset_password";
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam String token, @RequestParam String password, HttpSession session, Model m) {
+
+        UserDtls userByToken = userService.getUserByToken(token);
+
+        if (userByToken == null) {
+            m.addAttribute("errorMsg", "Your link is invalid or expired !!");
+            return "message";
+        } else {
+            userByToken.setPassword(bCryptPasswordEncoder.encode(password));
+            userByToken.setResetToken(null);
+            userService.updateUser(userByToken);
+            session.setAttribute("succMsg", "Password change successfully");
+            m.addAttribute("msg", "Password change successfully");
+            return "message";
+        }
+    }
 }

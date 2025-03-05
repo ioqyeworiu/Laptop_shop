@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.lapstore.LaptopShop.model.UserDtls;
 import com.lapstore.LaptopShop.repository.UserRepository;
 import com.lapstore.LaptopShop.service.UserService;
-import com.lapstore.LaptopShop.service.util.AppConstant;
+import com.lapstore.LaptopShop.util.AppConstant;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -96,4 +96,25 @@ public class UserServiceImpl implements UserService {
         
     }
 
+    @Override
+    public void updateUserResetToken(String email, String resetToken) {
+
+        UserDtls findByemail = userRepository.findByEmail(email);
+        findByemail.setResetToken(resetToken);
+        userRepository.save(findByemail);
+    }
+
+    @Override
+    public UserDtls getUserByToken(String token) {
+
+        return userRepository.findByResetToken(token);
+    }
+
+    @Override
+    public UserDtls updateUser(UserDtls user) {
+        
+        return userRepository.save(user);
+        
+    }
+    
 }

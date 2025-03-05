@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.lapstore.LaptopShop.model.UserDtls;
 import com.lapstore.LaptopShop.repository.UserRepository;
 import com.lapstore.LaptopShop.service.UserService;
-import com.lapstore.LaptopShop.service.util.AppConstant;
+import com.lapstore.LaptopShop.util.AppConstant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
