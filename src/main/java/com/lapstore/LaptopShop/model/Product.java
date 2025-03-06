@@ -31,6 +31,8 @@ public class Product {
 
     private Double price;
 
+    // private Float vat;
+
     private int stock;
 
     private String image;

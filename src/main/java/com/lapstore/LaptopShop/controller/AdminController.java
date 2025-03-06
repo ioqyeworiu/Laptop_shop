@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lapstore.LaptopShop.model.Category;
 import com.lapstore.LaptopShop.model.Product;
 import com.lapstore.LaptopShop.model.UserDtls;
+import com.lapstore.LaptopShop.service.CartService;
 import com.lapstore.LaptopShop.service.CategoryService;
 import com.lapstore.LaptopShop.service.ProductService;
 import com.lapstore.LaptopShop.service.UserService;
@@ -46,6 +47,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CartService cartService;
+
     @GetMapping("")
     public String index() {
         return "admin/index";
@@ -57,6 +61,8 @@ public class AdminController {
             String email = p.getName();
             UserDtls userDtls = userService.getUserByEmail(email);
             m.addAttribute("user", userDtls);
+            Integer countCart = cartService.getCountCart(userDtls.getId());
+            m.addAttribute("countCart", countCart);
         }
 
         List<Category> allActiveCategory = categoryService.getAllActiveCategories();
