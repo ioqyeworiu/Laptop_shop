@@ -1,5 +1,6 @@
 package com.lapstore.LaptopShop.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +28,7 @@ public class ProductOrder {
 
     private String orderId;
 
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @ManyToOne
     private Product product;

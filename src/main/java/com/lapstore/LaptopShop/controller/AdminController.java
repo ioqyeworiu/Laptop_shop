@@ -27,11 +27,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lapstore.LaptopShop.model.Category;
 import com.lapstore.LaptopShop.model.Product;
+import com.lapstore.LaptopShop.model.ProductOrder;
 import com.lapstore.LaptopShop.model.UserDtls;
 import com.lapstore.LaptopShop.service.CartService;
 import com.lapstore.LaptopShop.service.CategoryService;
+import com.lapstore.LaptopShop.service.OrderService;
 import com.lapstore.LaptopShop.service.ProductService;
 import com.lapstore.LaptopShop.service.UserService;
+import com.lapstore.LaptopShop.util.OrderStatus;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -49,6 +52,9 @@ public class AdminController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("")
     public String index() {
@@ -257,7 +263,7 @@ public class AdminController {
 
     @GetMapping("/updateSts")
     public String updateUserAccountStatus(@RequestParam Boolean status, @RequestParam Integer id, HttpSession session) {
-        
+
         Boolean f = userService.updateAccountStatus(id, status);
         if (f) {
             session.setAttribute("succMsg", "Account status updated");
@@ -266,5 +272,38 @@ public class AdminController {
         }
 
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/orders")
+    public String getAllOrders(Model m) {
+
+        List<ProductOrder> allOrders = orderService.getAllOrders();
+        m.addAttribute("orders", allOrders);
+
+        return "/admin/orders";
+
+    }
+
+    @PostMapping("/update-order-status")
+    public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, HttpSession session) {
+
+        OrderStatus[] values = OrderStatus.values();
+        String status = null;
+
+        for (OrderStatus orderStatus : values) {
+            if (orderStatus.getId().equals(st)) {
+                status = orderStatus.getName();
+            }
+        }
+
+        Boolean updateOrder = orderService.updateOrderStatus(id, status);
+
+        if (updateOrder) {
+            session.setAttribute("succMsg", "Update status success");
+        } else {
+            session.setAttribute("errorMsg", "Status not updated");
+        }
+
+        return "redirect:/admin/orders";
     }
 }
