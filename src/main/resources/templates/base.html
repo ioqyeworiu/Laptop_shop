@@ -99,7 +99,7 @@
             </th:block>
 
             <th:block th:if="${user!=null}">
-              <th:block th:if="${user.role==ROLE_USER}">
+              <th:block th:if="${user.role=='ROLE_USER'}">
                 <li class="nav-item">
                   <a
                     class="nav-link active"
