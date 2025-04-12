@@ -75,8 +75,9 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index() {
-
+    public String index(Model m) {
+        List<Product> products = productService.getAllActiveProducts();
+        m.addAttribute("products", products);
         return "home";
     }
 
@@ -185,7 +186,8 @@ public class HomeController {
     }
 
     @PostMapping("/reset-password")
-    public String resetPassword(@RequestParam String token, @RequestParam String password, HttpSession session, Model m) {
+    public String resetPassword(@RequestParam String token, @RequestParam String password, HttpSession session,
+            Model m) {
 
         UserDtls userByToken = userService.getUserByToken(token);
 

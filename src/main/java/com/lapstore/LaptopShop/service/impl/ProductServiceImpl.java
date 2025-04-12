@@ -100,4 +100,10 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
+    @Override
+    public List<Product> getAllActiveProducts() {
+        List<Product> products = productRepository.findByIsActiveTrue();
+        return products;
+    }
+
 }
