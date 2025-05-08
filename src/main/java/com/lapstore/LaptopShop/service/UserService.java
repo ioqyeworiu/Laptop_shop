@@ -1,6 +1,9 @@
 package com.lapstore.LaptopShop.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lapstore.LaptopShop.model.UserDtls;
 
@@ -26,4 +29,6 @@ public interface UserService {
     public UserDtls getUserByToken(String token);
 
     public UserDtls updateUser(UserDtls user);
+    
+    public UserDtls updateUserProfile(UserDtls user, MultipartFile img) throws IOException;
 }

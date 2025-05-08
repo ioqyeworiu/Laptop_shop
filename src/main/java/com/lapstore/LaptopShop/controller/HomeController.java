@@ -203,4 +203,11 @@ public class HomeController {
             return "message";
         }
     }
+
+    @GetMapping("/search")
+    public String searchProduct(@RequestParam String ch, Model m) {
+        List<Product> searchProdcts = productService.searchProduct(ch);
+        m.addAttribute("products", searchProdcts);
+        return "products";
+    }
 }
