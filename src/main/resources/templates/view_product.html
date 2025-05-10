@@ -40,15 +40,15 @@
                 th:text="${@commonServiceImpl.removeSessionMessage()}"
               ></th:block>
             </th:block>
+            <!-- th:src="@{'/img/product_img/'+${product.image}}" -> <img> -->
             <div class="col-md-6 text-end">
               <img
-                alt=""
-                src="/img/product_img/laptop.jpg"
+                alt="image not vailable"
+                src="/img/product_img/image1.jpg"
                 width="330px"
                 height="400px"
               />
             </div>
-
             <div class="col-md-6">
               <p class="fs-3">[[${product.title}]]</p>
               <p>

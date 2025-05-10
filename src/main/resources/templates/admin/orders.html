@@ -58,7 +58,7 @@
 
           <div class="col-md-12 p-4">
             <table class="table table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th scope="col">Order ID</th>
                   <th scope="col">Delivery Details</th>
@@ -188,6 +188,57 @@
                 </th:block>
               </tbody>
             </table>
+            <th:block th:if="${!srch}">
+              <div class="row">
+                <div class="col-md-4">Total Orders : [[${totalElements}]]</div>
+                <th:block th:if="${totalElements} > 0">
+                  <div class="col-md-6">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li
+                          class="page-item"
+                          th:classappend="${isFirst} ? 'disabled':''"
+                        >
+                          <a
+                            class="page-link"
+                            th:href="@{'/admin/orders?pageNo='+${pageNo-1}}"
+                            aria-label="Previous"
+                          >
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+
+                        <li
+                          th:each="i:${#numbers.sequence(1,totalPages)}"
+                          class="page-item"
+                          th:classappend="${pageNo+1==i}?'active':''"
+                          ]]
+                        >
+                          <a
+                            class="page-link"
+                            th:href="@{'/admin/orders?pageNo='+${i-1}}"
+                            >[[${i}]]</a
+                          >
+                        </li>
+
+                        <li
+                          class="page-item"
+                          th:classappend="${isLast} ? 'disabled':''"
+                        >
+                          <a
+                            class="page-link"
+                            th:href="@{'/admin/orders?pageNo='+${pageNo+1}}"
+                            aria-label="Next"
+                          >
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </th:block>
+              </div>
+            </th:block>
           </div>
         </div>
       </div>

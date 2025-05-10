@@ -2,6 +2,8 @@ package com.lapstore.LaptopShop.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.lapstore.LaptopShop.model.OrderRequest;
 import com.lapstore.LaptopShop.model.ProductOrder;
 
@@ -17,4 +19,5 @@ public interface OrderService {
 
     public ProductOrder getOrderByOrderId(String orderId);
 
+    public Page<ProductOrder> getAllOrdersPagination(Integer pageNo, Integer pageSize);
 }

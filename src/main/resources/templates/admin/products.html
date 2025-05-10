@@ -10,8 +10,8 @@
   </head>
   <body>
     <section>
-      <div class="container-fluid mt-5 p-5">
-        <div class="card card-sh">
+      <div class="container-fluid mt-1 p-1">
+        <div class="row">
           <div class="card-header text-center">
             <p class="fs-4 text-center">View Products</p>
             <th:block th:if="${session.succMsg}">
@@ -28,9 +28,28 @@
               ></th:block>
             </th:block>
           </div>
-          <div class="card-body">
-            <table class="table">
-              <thead>
+
+          <div class="col-md-6 p-4">
+            <form action="/admin/products" method="get">
+              <div class="row">
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="ch"
+                    placeholder="Enter product name. Ex: laptop asus"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <button type="" class="btn btn-primary">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="p-4">
+            <table class="table table-bordered">
+              <thead class="table-light">
                 <tr>
                   <th scope="col">Sl No</th>
                   <th scope="col">Image</th>
@@ -84,6 +103,57 @@
                 </tr>
               </tbody>
             </table>
+            <!-- start pagination -->
+            <div class="row">
+              <div class="col-md-4">Total Products : [[${totalElements}]]</div>
+              <th:block th:if="${totalElements} > 0">
+                <div class="col-md-6">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li
+                        class="page-item"
+                        th:classappend="${isFirst} ? 'disabled':''"
+                      >
+                        <a
+                          class="page-link"
+                          th:href="@{'/admin/products?pageNo='+${pageNo-1}}"
+                          aria-label="Previous"
+                        >
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+
+                      <li
+                        th:each="i:${#numbers.sequence(1,totalPages)}"
+                        class="page-item"
+                        th:classappend="${pageNo+1==i}?'active':''"
+                        ]]
+                      >
+                        <a
+                          class="page-link"
+                          th:href="@{'/admin/products?pageNo='+${i-1}}"
+                          >[[${i}]]</a
+                        >
+                      </li>
+
+                      <li
+                        class="page-item"
+                        th:classappend="${isLast} ? 'disabled':''"
+                      >
+                        <a
+                          class="page-link"
+                          th:href="@{'/admin/products?pageNo='+${pageNo+1}}"
+                          aria-label="Next"
+                        >
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </th:block>
+            </div>
+            <!-- end pagination -->
           </div>
         </div>
       </div>

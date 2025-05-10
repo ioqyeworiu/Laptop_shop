@@ -79,7 +79,7 @@
               <div class="card-body">
                 <p class="fs-3 text-center">Products</p>
                 <div class="row">
-                  <th:block th:if="${products.size}">
+                  <th:block th:if="${productsSize}">
                     <div class="col-md-3" th:each="p:${products}">
                       <div class="card mt-3">
                         <div class="card-body text-center">
@@ -115,7 +115,7 @@
                     </div>
                   </th:block>
 
-                  <th:block th:unless="${products.size>0}">
+                  <th:block th:unless="${productsSize>0}">
                     <p class="fs-4 text-center mt-4 text-danger">
                       Product not available
                     </p>
@@ -123,6 +123,55 @@
                 </div>
               </div>
             </div>
+            <!-- start pagination -->
+            <div class="row">
+              <div class="col-md-4">Total Products : [[${totalElements}]]</div>
+              <div class="col-md-6">
+                <th:block th:if="${productsSize} > 0">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li
+                        class="page-item"
+                        th:classappend="${isFirst} ? 'disabled':''"
+                      >
+                        <a
+                          class="page-link"
+                          th:href="@{'/products?pageNo='+${pageNo-1}}"
+                          aria-label="Previous"
+                        >
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+
+                      <li
+                        th:each="i:${#numbers.sequence(1, totalPages)}"
+                        class="page-item"
+                        th:classappend="${pageNo + 1 == i}?'active':''"
+                      >
+                        <a
+                          class="page-link"
+                          th:href="@{'/products?pageNo='+${i-1}}"
+                          >[[${i}]]</a
+                        >
+                      </li>
+                      <li
+                        class="page-item"
+                        th:classappend="${isLast} ? 'disabled':''"
+                      >
+                        <a
+                          class="page-link"
+                          th:href="@{'/products?pageNo='+${pageNo+1}}"
+                          aria-label="Next"
+                        >
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </th:block>
+              </div>
+            </div>
+            <!-- end pagination -->
           </div>
           <!-- end products -->
         </div>
